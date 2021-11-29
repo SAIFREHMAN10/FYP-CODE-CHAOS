@@ -65,11 +65,11 @@
             <h2>Manage Course</h2>
         </div>
         <div class="col">
-            <a href="./admincoursemanagement" class="btn btn-dark addCourseButton" data-bs-toggle="modal" data-bs-target="#exampleModal"> + Add
+            <a href="./admincoursemanagement" class="btn btn-dark addCourseButton" data-bs-toggle="modal" data-bs-target="#exampleModal3"> + Update
                 Course</a>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -77,8 +77,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form class="row g-3" action="/admincoursemanagement" method="POST">
-                            <input type="hidden" name="_id" value="{admincoursemanagement._id}}">
+                            <form class="row g-3" action="/users2/:id" method="POST">
+                            
                                 <div class="col-md-6">
                                     <label for="newCoureName" class="form-label">Course Name</label>
                                     <input type="text" class="form-control" id="newCoureName" name="coursename" value="{{admincoursemanagement.coursename}}">
@@ -157,142 +157,6 @@
             </div>
         </div>
 </div>
-        <div class="addCourseCard">
-            <div class="row">
-                <div class="card ">
-                    <div class="card-header">
-                        Search a course
-                    </div>
-                    <div class="card-body">
-
-                        <div class="row">
-                            <div class="col-md-auto">
-                                <div class="dropdown">
-                                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Filter
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
-                                </div>
-
-                            </div>
-
-                            <div class="col">
-                                <input class="form-control" type="text" placeholder="Default input" aria-label="default input example">
-
-                            </div>
-                            <div class="col">
-
-                                <a href="./src/admin/adminCourseManage.html" class="btn btn-dark courseSearchButton">
-                                    <i class="fas fa-search fa-1x"></i></a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-
-    <hr>
-
-
-    <!-- Courses shown below 
-    <div class="row coursesRow ">
-        <div class="col col-lg-4">
-            <div class="card text-white bg-secondary mb-3" style="width: 18rem; text-align: center;">
-
-                <img src="../../img/html.png" class="card-img-top" />
-
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-dark">Edit COurse</a>
-                </div>
-            </div>
-        </div>
-        <div class="col col-lg-4">
-            <div class="card text-white bg-secondary mb-3" style="width: 18rem; text-align: center;">
-                <img src="../../img/nodejs.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-dark">Edit COurse</a>
-                </div>
-            </div>
-        </div>
-        <div class="col col-lg-4">
-            <div class="card text-white bg-secondary mb-3" style="width: 18rem; text-align: center;">
-                <img src="../../img/react.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-dark">Edit COurse</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br><br>-->
-<div class="container">
-
-
-        <div class="row">
-            <div class="col">
-
-
-                <table class="table" id="courselist">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Course Name</th>
-                            <th scope="col">Course Code</th>
-                              <th scope="col">Instructor</th>
-                            <th scope="col">Credit Hours</th>
-                    
-                            
-                            <th scope="col">Program</th>
-                            <th scope="col">Semester</th>
-                            
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each admincoursemanagement}}
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>{{this.coursename}}</td>
-                            <td>{{this.coursecode}}</td>
-                            <td>{{this.instructor}}</td>
-                          <td>{{this.credithours}}</td>
-                            <td>{{this.semester}}</td>
-                            <td>{{this.program}}</td>
-                           
-<td>
-                <a href="/users2/{{this._id}}"  ><i class="fa fa-pencil fa-lg" aria-hidden="true" ></i></a>
-                <a style={text-decoration:none;} href="/delete2/{{this._id}}" onclick="return confirm('Are you sure to delete this record ?');"><i  class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
-            </td>
-                           
-                        </tr>
- {{/each}}
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-    <!-- Maind Body ended -->
-
 
     <!-- Bootsrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

@@ -9,6 +9,8 @@ const d=path.join(__dirname,"../../../node_modules/bootstrap");
 const e=path.join(__dirname,"../../../node_modules/bootstrap/dist");
 const c=path.join(__dirname,"../../../public");
 var sid;
+var tid;
+var cid;
 //app.use(express.static(c))
 
 require("../db/conn");
@@ -78,13 +80,32 @@ app.get("/admincoursemanagement",(req,res)=>
 {
 
     app.use(express.static(c));
-    res.render("admincoursemanagement");
+    Register3.find((err, docs) => {
+        if (!err) {
+            res.render("admincoursemanagement", {
+                admincoursemanagement: docs
+            });
+        }
+        else {
+            console.log('Error in retrieving employee list :' + err);
+        }
+    });
 });
 app.get("/adminteachermanagement",(req,res)=>
 {
     app.use(express.static(c));
+    Register5.find((err, docs) => {
+        if (!err) {
+            res.render("adminteachermanagement", {
+                adminteachermanagement: docs
+            });
+        }
+        else {
+            console.log('Error in retrieving employee list :' + err);
+        }
+    });
     
-    res.render("adminteachermanagement",{name4:e1});
+    
 });app.get("/adminstudentmanagement",(req,res)=>
 {
     app.use(express.static(c));
@@ -110,12 +131,38 @@ app.get("/studentupdate",(req,res)=>
     app.use(express.static(c));
     res.render("studentupdate");
 });
+app.get("/teacherupdate",(req,res)=>
+{
+    app.use(express.static(c));
+    res.render("teacherupdate");
+});
+app.get("/courserupdate",(req,res)=>
+{
+    app.use(express.static(c));
+    res.render("courseupdate");
+});
 app.get('/delete/:id', function(req,res) {
     Register4.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
             res.render('adminstudentmanagement');
         }
         else { res.render('adminstudentmanagement'); }
+    });
+});
+app.get('/delete1/:id', function(req,res) {
+    Register5.findByIdAndRemove(req.params.id, (err, doc) => {
+        if (!err) {
+            res.render('adminteachermanagement');
+        }
+        else { res.render('adminteachermanagement'); }
+    });
+});
+app.get('/delete2/:id', function(req,res) {
+    Register3.findByIdAndRemove(req.params.id, (err, doc) => {
+        if (!err) {
+            res.render('admincoursemanagement');
+        }
+        else { res.render('admincoursemanagement'); }
     });
 });
 app.get("/studentlogin",(req,res)=>
@@ -138,7 +185,43 @@ console.log(sid);
             });
         }
     });
+})
+app.get("/users/:id/adminstudentmanagement",(req,res)=>
+{
+    app.use(express.static(c));
+    res.render("adminstudentmanagement");
 });
+app.get('/users1/:id', function (req,res){
+    tid=req.params.id;
+    console.log(tid);
+        Register5.findById(req.params.id, (err, doc) => {
+            console.log("l");
+            //updateRecord(req,res);
+            if (!err) {
+                console.log("succ");
+                res.render("teacherupdate", {
+                 
+                    adminteachermanagement: doc
+                });
+            }
+        });
+    });
+    app.get('/users2/:id', function (req,res){
+        cid=req.params.id;
+        console.log(cid);
+            Register3.findById(req.params.id, (err, doc) => {
+                console.log("l");
+                //updateRecord(req,res);
+                if (!err) {
+                    console.log("succ");
+                    res.render("courseupdate", {
+                     
+                        admincoursemanagement: doc
+                    });
+                }
+            });
+        });
+
 app.post('/users/:id', function (req,res){
     
     Register4.findOneAndUpdate({ _id: sid}, req.body, { new: true }, (err, doc) => {
@@ -158,6 +241,44 @@ app.post('/users/:id', function (req,res){
         }
     });
     });
+    app.post('/users1/:id', function (req,res){
+    
+        Register5.findOneAndUpdate({ _id: tid}, req.body, { new: true }, (err, doc) => {
+            if (!err) {
+                console.log(tid);
+                 res.render("adminteachermanagement"); }
+            else {
+                if (err.name == 'ValidationError') {
+                    handleValidationError(err, req.body);
+                    res.render("adminteachermanagement", {
+                        
+                        adminteachermanagement: req.body
+                    });
+                }
+                else
+                    console.log('Error during record update : ' + err);
+            }
+        });
+        });
+        app.post('/users2/:id', function (req,res){
+    
+            Register3.findOneAndUpdate({ _id: cid}, req.body, { new: true }, (err, doc) => {
+                if (!err) {
+                    console.log(cid);
+                     res.render("admincoursemanagement"); }
+                else {
+                    if (err.name == 'ValidationError') {
+                        handleValidationError(err, req.body);
+                        res.render("admincoursemanagement", {
+                            
+                            admincoursemanagement: req.body
+                        });
+                    }
+                    else
+                        console.log('Error during record update : ' + err);
+                }
+            });
+            });
 
 
 app.get("/teacherlogin",(req,res)=>
